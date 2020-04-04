@@ -13,6 +13,9 @@ const PORT=process.env.PORT || 5000;
 connectDB();
 
 
+//middle ware  // with is it will accept the body data 
+app.use(express.json({ extended:false  }))
+
 app.get('/', (req,res) => res.json({
     msg:"welcome to the JSON RESPONSE"
 }))
