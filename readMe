@@ -1,0 +1,21 @@
+mongodb+srv://soumitya:<password>@contactkeepercluster-0xnia.mongodb.net/test?retryWrites=true&w=majority
+
+
+npm init
+ npm i express bcryptjs jsonwebtoken config express-validator mongoose
+
+
+ npm i -D nodemon concurrently  these will to run both the server concurrently react and Express    
+    add in packjson     "server":"nodemon server.js",
+
+    to run we use npm start  but using nodemon we tell npm run server
+
+
+
+
+express 
+      
+
+express.Router()        Defining routes like above is very tedious to maintain. To separate the routes from our main index.js file, we will use Express.Router. Create a new file called things.js and type the following in it.
+
+    
