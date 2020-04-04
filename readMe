@@ -19,3 +19,7 @@ express
 express.Router()        Defining routes like above is very tedious to maintain. To separate the routes from our main index.js file, we will use Express.Router. Create a new file called things.js and type the following in it.
 
     
+
+
+config file
+    in default.json  create some value that will access by the entires application
