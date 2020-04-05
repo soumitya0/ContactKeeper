@@ -8,8 +8,6 @@ const router= express.Router();
 const { check, validationResult } = require('express-validator');
 
 
-
-
 //Schema 
 const User = require('../models/User')
 
@@ -79,7 +77,6 @@ router.post(
 
         
         //Step-3 Bcrypt
-        //saving to database
         await user.save();
 
 
@@ -94,7 +91,7 @@ router.post(
                 id: user.id     // with this user id we can get all the data realed to user
             }
         }
-        //step-2(JWT)
+        //step-2(JWT) (genereating token)
         //jwt.sign() method takes a payload and the secret key defined in config.js  and 
         JWT.sign( PAYLOAD , config.get('jwtSecret') ,{
             expiresIn: 360000
