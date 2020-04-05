@@ -23,7 +23,7 @@ const Contact = require('../models/contact')
 
 
 // @route       GET api/contacts 
-// @desc        GET the data of  users
+// @desc        GET the data of  users contact (fetching the contact)
 // @access      Private    
 router.get('/',auth ,async (req,res) =>{
 
@@ -41,13 +41,49 @@ router.get('/',auth ,async (req,res) =>{
 })
 
 
-
-
 // @route       POST api/contacts 
 // @desc        Adding contact 
 // @access      Private    
-router.post('/',(req,res) =>{
-    res.send('Add  contacts');
+router.post('/',
+ [auth , 
+   [
+    
+    check('name','Name is required').not().isEmpty()
+
+   ] 
+],async (req,res) =>{
+ 
+    const errors = validationResult(req);
+    
+    if(!errors.isEmpty()){
+        
+        return res.status(400).json({ errors:errors.array()});
+    }
+
+    //destructring pulling out the name ,email,phone and type from body
+    const {name,email,phone,type} = req.body;
+
+    try {
+        const newContact = new Contact({
+            name : name,
+            email : email,
+            phone : phone,
+            type : type,
+            user: req.user.id   
+        });
+
+        const contact = await newContact.save();
+        
+        res.json(contact);
+
+
+    } catch (err) {
+
+        console.error(err.message);
+
+        res.status(500).send('server error')
+        
+    }
 })
 
 
