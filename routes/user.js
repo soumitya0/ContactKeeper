@@ -18,6 +18,15 @@ const User = require('../models/User')
 const bcrypt = require('bcryptjs');
 
 
+//JWT       when a user Register or Signup we want a spical TOKEN than gone a have PAYLOAD(palyLOad is the data that we want to send ) in it 
+const JWT = require("jsonwebtoken");
+
+
+//config
+const config = require('config');
+
+
+
 // @route       POST api/user
 // @desc        Register User
 // @access      public    
@@ -56,22 +65,44 @@ router.post(
         user = new User({     // not find same email the creating a new User using User Modules
             name : name,
             email : email,
-            password : password,     
+            password : password     
         });
 
         //Now we will Incrypt the Password before storing the User Instance
 
+        //Step-1 Bcrypt
         const salt = await bcrypt.genSalt(10);
 
+        //Step-2 Bcrypt
         //hashing password
         user.password = await bcrypt.hash(password, salt);
 
+        
+        //Step-3 Bcrypt
         //saving to database
         await user.save();
 
 
-        res.send('User Save');
+        //res.send('User Save'); 
+         // this is responsev that when user Register without and  error
+        // but we don't want this we will create a PAYLOAD and add to JWT
 
+        //JWT 
+        //step-1(JWT)
+        const PAYLOAD = {
+            user:{
+                id: user.id     // with this user id we can get all the data realed to user
+            }
+        }
+        //step-2(JWT)
+        //jwt.sign() method takes a payload and the secret key defined in config.js  and 
+        JWT.sign( PAYLOAD , config.get('jwtSecret') ,{
+            expiresIn: 360000
+        },(err, token)=>{
+            if(err) throw err
+
+            res.json({token})
+        });
 
 
     }catch(err){
