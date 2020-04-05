@@ -82,6 +82,8 @@ config file
 
 
 
-        // creating a middlerWare folder
 
+
+// ContactSchema
+    -> we want to create a relation b/w contact and user
 

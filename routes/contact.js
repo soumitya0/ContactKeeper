@@ -5,11 +5,39 @@ const router= express.Router();
  
 
 
+//middle ware
+const auth = require ('../middleWare/auth');
+
+
+//express validator
+const { check, validationResult } = require('express-validator');
+
+
+//Schema UserSchema
+const User = require('../models/User')
+
+//Schema Contact Schema
+const Contact = require('../models/contact')
+
+
+
+
 // @route       GET api/contacts 
 // @desc        GET the data of  users
 // @access      Private    
-router.get('/',(req,res) =>{
-    res.send('get the contacts');
+router.get('/',auth ,async (req,res) =>{
+
+    try {
+        
+        const contacts = await Contact.find({ user: req.user.id}).sort({date: -1})
+        res.json(contacts)
+
+    } catch (err) {
+
+        console.log(err.message);
+        res.status(500).send('server Error');
+
+    }
 })
 
 
