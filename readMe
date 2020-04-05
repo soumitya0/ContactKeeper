@@ -42,4 +42,46 @@ config file
 
     //38   User Module and   validation by express validator  
 
-    
+    bcryptjs
+
+    //jWT  user and auth routes
+
+        jwt token include id that help to fetch the data form the token id 
+        token will fecth by the middle ware 
+
+        // we will create a middleware that send jwt in header  for Protecting Routes that is user contactkeepercluster
+
+                /**middleWare  is just a function that has access to  requset and respons cycle and requset respons object 
+                     so ever time when we hit endpoint  we can fire middleWare and we will check if their is TOKEN **/
+
+            step-1 :    
+                    create a middleWare folder
+
+            step-2 create auth.js
+                    //getting the token from header using middleWare function next();
+                   
+                   //check if not  a token  no Token, authorization denied
+
+                 // verfing the token by using jwt.verify(token , config.get('jwtSecret'));
+
+               //creating a objct of req  
+                        req.user = deCode.user;   
+                        // in playload data  we have a object user that contain id 
+                       //and this id is passed to req object that is re.user  
+                      //this req object  is user will assecc  by Route the GET method http://localhost:5000/api/auth 
+
+            step-3 get this middle ware in the routes/auth.js
+                   //require the middleware/auth  that have middle ware function 
+                   
+                   routes/auth.js line no 44
+                   //cont user = User.findById(req.user.id).select('-password');  //user is collection in DB 
+                        //here is the reuest object user that is coming from middleware/auth.js 
+
+                    //res.json(user)
+
+
+
+
+        // creating a middlerWare folder
+
+

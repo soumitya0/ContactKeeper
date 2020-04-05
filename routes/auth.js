@@ -21,18 +21,33 @@ const config = require('config');
 
 
 
+//middleWare 
+
+const auth = require('../middleWare/auth')
 
 // @route       GET api/auth
 // @desc        get logged in user
 // @access      Private  
 
-router.get('/',(req,res) =>{
-    res.send('get logged in  User');
+
+
+// router.get('/',(req,res) =>{
+//     res.send('get logged in  User');
+
+// })
+
+
+
+router.get('/',auth, async(req,res) =>{
+
+    try {
+        const user = await User.findById(req.user.id).select('-password'); //here is the reuest object user that is coming from middleware/auth.js 
+        res.json(user)
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('server error');
+    }
 }) 
-
-
-
-
 
 
 
