@@ -1,6 +1,7 @@
 import React, { useReducer } from "react";
 
-import uuid from "uuid"; // these is use to generated a random id
+import { v1 as uuid } from "uuid";
+// these is use to generated a random id
 
 import ContactContext from "./contactContext";
 import ContactReducer from "./contactReducer";
@@ -45,6 +46,11 @@ const ContactState = (props) => {
   const [state, dispatch] = useReducer(ContactReducer, initialState);
 
   //ADD contact
+  const addContact = (contact) => {
+    contact.id = uuid;
+    // this is just to add ID becase now we are not using the Mongodb and mongodb have it own id gen
+    dispatch({ type: ADD_CONTACT, payload: contact });
+  };
 
   //Delete contact
 
@@ -63,6 +69,7 @@ const ContactState = (props) => {
     <ContactContext.Provider
       value={{
         contacts: state.contacts,
+        addContact,
       }}
     >
       {props.children}

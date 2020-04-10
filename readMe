@@ -107,3 +107,6 @@ lineno:14
 //this is not a single form field we have to put the object in 
      1 copy the rest to this useing spread operator 
      2-> e.tagret
+so when ever Submit we want to add to our state\\
+
+passing the data 

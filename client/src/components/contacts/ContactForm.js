@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import ContactContext from "../../context/contact/contactContext";
 
 const ContactForm = () => {
+  const contactContext = useContext(ContactContext);
+
   const [contact, setContact] = useState({
     name: "",
     email: "",
@@ -11,19 +14,33 @@ const ContactForm = () => {
   const { name, email, phone, type } = contact;
 
   //what ever we type in the INput filed get add to state
-  const onChange = (e) => {
+  const onChangeForm = (e) => {
     setContact({ ...contact, [e.target.name]: e.target.value }); //this is not a single form field we have to put the object in  1 copy the rest to this useing spread operator  2-> e.tagret
   };
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    contactContext.addContact(contact); // this contact have all of the state field
+
+    setContact({
+      //clear a from
+      name: "",
+      email: "",
+      phone: "",
+      type: "personal",
+    });
+  };
+
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <h2 className="text-primary">Add Contact </h2>
       <input
         type="text"
         placeholder="Name"
         name="name"
         value={name}
-        onChange={onchange}
+        onChange={onChangeForm}
       ></input>
 
       <input
@@ -31,7 +48,7 @@ const ContactForm = () => {
         placeholder="Email"
         name="email"
         value={email}
-        onChange={onchange}
+        onChange={onChangeForm}
       ></input>
 
       <input
@@ -39,7 +56,7 @@ const ContactForm = () => {
         placeholder="Phone"
         name="phone"
         value={phone}
-        onChange={onchange}
+        onChange={onChangeForm}
       ></input>
 
       <h5>
@@ -57,6 +74,7 @@ const ContactForm = () => {
           name="type"
           value="professional"
           checked={type === "professional"}
+          onChange={onChangeForm}
         />
         professional {""}
         <div>
