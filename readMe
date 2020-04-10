@@ -2,8 +2,7 @@ mongodb+srv://soumitya:<password>@contactkeepercluster-0xnia.mongodb.net/test?re
 
 
 npm init
- npm i express bcryptjs jsonwebtoken config express-validator mongoose
-
+ 
 
  npm i -D nodemon concurrently  these will to run both the server concurrently react and Express    
     add in packjson     "server":"nodemon server.js",
@@ -87,3 +86,24 @@ config file
 // ContactSchema
     -> we want to create a relation b/w contact and user
 
+    -> wee will store the contact with the id of user and that id will be get by the middleWare
+    ->with the help of middleware that will give id  we will dispaly the contatc and and the add the contact
+
+
+
+
+///react 
+  
+
+
+  //form 
+
+contactForm.js
+lineno:14
+  const onChange = (e) =>{
+     setContact({...contact , [e.target.name]:e.target.value })         
+  }
+
+//this is not a single form field we have to put the object in 
+     1 copy the rest to this useing spread operator 
+     2-> e.tagret
